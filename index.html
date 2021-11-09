@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMaartje - Selecteer je stoelen</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-gray-800 text-gray-100">
+
+    <div class="grid grid-cols-12 gap-8">
+        <div class="col-span-12 flex space-between">
+          <span>terug</span>
+          <span>1. kies je stoel</span>
+          <span>2. gegevens</span>
+          <span>3. betaling</span>
+          <span>4. bevestiging</span>
+        </div>
+
+        <div  class="col-span-7 col-start-2">
+          <div class="w-4/5 bg-red-900 h-4 text-xs text-center rounded-lg m-auto mb-8">
+            filmscherm
+          </div>
+          <div id="seating" class="grid grid-cols-9 gap-4">
+            hi
+            <!-- JS adds seats dynamically to HTML -->
+          </div>
+        </div>
+
+        <div id="shoppingCart-container" class="col-span-3 bg-gray-700 p-4">
+          <input for="amountTickets" placeholder="Aantal tickets:"></input>
+          <h3>Uw keuze</h3>
+          <div class="ticket-selection">
+            <!-- Choose your tickets -->
+          </div>
+        </div>
+      </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
