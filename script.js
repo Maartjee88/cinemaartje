@@ -1,6 +1,6 @@
 "use strict";
 
-// Hardcoded reserved seats. 
+// Hardcoded reserved seats 
 const reservedSeats = {
     1:  {
         chair:  'C4',
@@ -55,15 +55,15 @@ const reservedSeats = {
 // Add seats to the HTML
 const addSeats = ( chairCols, chairRows ) => {
     const chairs = chairCols * chairRows;
-    let html = "";
+    let seatsHTML = "";
     let counter = 1;
 
     for (let i = 0; i < chairs; i++ ){
-        html += `<button id="C${counter}" onclick="selectSeats()" class="text-gray-800 font-medium border-solid border-4 rounded-b-3xl border-green-700 bg-green-200 py-1 px-2 border-t-0 text-center available">${counter}</button>`;
+        seatsHTML += `<button id="C${counter}" class="text-gray-800 font-medium border-solid border-4 rounded-b-3xl border-green-700 bg-green-200 py-1 px-2 border-t-0 text-center seat available">${counter}</button>`;
         counter++;
     }
 
-    document.querySelector('#seating').innerHTML = html;
+    document.querySelector('#seating').innerHTML = seatsHTML;
 }
 
 function alreadyReserved() {    // Check which seat is already taken, disable button to be clicked
@@ -71,33 +71,50 @@ function alreadyReserved() {    // Check which seat is already taken, disable bu
 		let obj = reservedSeats[key]; //create variable with object, use object to alter the DOM.
 
 		document.querySelector(`#${obj.chair}`).setAttribute("disabled", "true");   // add disabled attribute to disable button
-		document.querySelector(`#${obj.chair}`).setAttribute("class", "text-gray-400 font-medium border-solid border-4 rounded-b-3xl border-gray-400 bg-gray-700 py-1 px-2 border-t-0 text-center cursor-not-allowed unavailable");  // replace current classes with new ones.
+		document.querySelector(`#${obj.chair}`).setAttribute("class", "text-gray-400 font-medium border-solid border-4 rounded-b-3xl border-gray-400 bg-gray-700 py-1 px-2 border-t-0 text-center cursor-not-allowed seat reserved");  // replace current classes with new ones.
 	}
 }
 
-function selectSeats() {    // Let user select their chairs
-    let selectedSeats = ['']; // array of selected seats
-    const seats = document.querySelectorAll('.available');
+function getSeats() { // Let user select their chairs
+    const allSeats = document.querySelectorAll('.seat'); // get all available seats
+    const availableSeats = document.querySelectorAll('.available'); // get all available seats
+    const reservedSeats = document.querySelectorAll('.reserved'); // get all reserved seats
+    
+    let selectedSeats = [];
+    let amountTickets = document.querySelector('#amountTickets').value; // get value from inputfield
+    let numSeats = parseInt( amountTickets, 10 );
 
-    console.log('click!', seats);
-    const seatSelection = (seat) => {
-        let pickedSeat = seat; //seat which is currently selected
+    for (let i = 0; i < numSeats; i++ ) {
+        console.log(availableSeats[i]);
+        selectedSeats.push(availableSeats[i]);
+    }
+    
+    console.log(selectedSeats);
 
-        if ( !querySelector(pickedSeat).classList.contains('.unavailable') ) {
-            if ( selectedSeats.indexOf(pickedSeat) > -1 ) {
-                let currentSeat = selectSeats.indexOf(pickedSeat); 
-                
-                selectedSeats.splice(currentSeat, 1);
-                document.querySelector(thisSeat).setAttribute("class", "text-gray-800 font-medium border-solid border-4 rounded-b-3xl border-green-500 bg-green-200 py-1 px-2 border-t-0 text-center");
+    for (let key in selectedSeats) {
+		let obj = selectedSeats[key]; //create variable with object, use object to alter the DOM.
 
-            } else {
-                selectedSeats.push(pickedSeat);
-                document.querySelector(thisSeat).setAttribute("class", "text-gray-800 font-medium border-solid border-4 rounded-b-3xl border-yellow-500 bg-yellow-200 py-1 px-2 border-t-0 text-center selected");
-            }
+		document.querySelector(`#${obj.chair}`).setAttribute("class", "text-gray-400 font-medium border-solid border-4 rounded-b-3xl border-yellow-400 bg-yellow-700 py-1 px-2 border-t-0 text-center cursor-not-allowed seat selected");  // replace current classes with new ones.
+	}
 
-            console.log(selectedSeats);
-        }
-     }
+
+    // for ( let seat in allSeats ) {
+
+    //     if (availableSeats.includes(seat)) {
+    //         console.log('Available');
+    //     } else if (document.querySelector('.reserved')) {
+    //         console.log('Reserved');
+    //     }
+    // }
+    
+    // console.log('Available: ', availableSeats); // debug
+    // console.log('Reserved', reservedSeats); // debug
+    // console.log('All', allSeats); // debug
+    
+    
+    let ticketsHTML = `Tickets: ${selectedSeats.toString()}`;       // gives feedback on frontend on how many tickets
+
+    document.querySelector('#selected-seats').innerHTML = ticketsHTML;
 }
 
 addSeats(9, 5);
