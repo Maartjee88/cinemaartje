@@ -50,8 +50,11 @@ function getSeats() { // Let user select their chairs
         THOUGHT: if next seat in allSeats is not in availableSeats. Create new array
     */
    
-    // for ( let j in allSeats ) {
-    //     console.log(j);
+    // for ( let id in allSeats ) {
+    //     const chunkedArr = [];
+    //     let index = 0;
+
+        
     // }
     
     let ticketsHTML = `Tickets: ${takenSeats.toString()}`; // gives feedback on frontend on which tickets they got
